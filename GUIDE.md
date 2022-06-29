@@ -7,8 +7,44 @@
 1. 判定を行うものに関しては`true`または`false`を返答します。
 1. エラーはすべて`null`を返答し、コンソールにエラー内容を出力します。
 1. 表記がない限り大文字と小文字は区別されます。
+1. 数値は`9007199254740991`を超える値を入力しないでください。*1
+
+*1 数値型の値は簡易的に確認していますが、配列に含まれる数値は確認されていないので注意してください  
 
 # Sys
+
+## Sys.Get / 取得
+### 概要
+指定されたファイルを取得します。
+
+### 使い方
+```
+>> 基本構文
+Sys.Get({Link})
+
+>> 出力一覧
+任意の値 = ファイルの内容
+null = エラー
+```
+`Link` = URL or FileLink  
+
+### 利用例
+```
+>> File(hoge.txt)
+fugapiyo
+
+>> Program
+console.log("hoge.txt")
+
+>> Output
+fugapiyo
+```
+
+### 注意点
+- Link
+- - 入力できる型は`文字列`/`数値`です。(推奨:文字列)
+- - `file.txt`or`file/file.txt`or`https://you-domain.dev`のような形式が利用できます。
+- - `CORS Policy`によって外部のドメイン(サブドメイン含む)に接続する場合は**サーバー側で**適切な設定が必要です。
 
 ## Sys.In / 含む
 ### 概要
@@ -39,10 +75,14 @@ true
 ```
 
 ### 注意点
+- In
+- - 数値を入力した場合文字列に変換されます。
 - Check
 - - 入力できる型は`文字列`/`数値`です。 
 - Text
 - - 入力できる型は`文字列`/`数値`/`配列`です。
+- - 多重配列は扱うことができません。
+> なぜか、Checkに辞書を入れたときもエラー処理に引っかかるはずなのにパスされてしまう。
 
 ---
 
@@ -107,6 +147,8 @@ Sys.Redirect("https://you-domain.dev", 1000)
 ```
 
 ### 注意点
+- Redirect
+- - 履歴が残らない方式で転送されます。
 - Link
 - - 入力できる型は`文字列`です。
 - MsTime
@@ -147,14 +189,14 @@ async function hoge(){
 - MsTime
 - - 入力できる型は`数値`です。
 
-## Sys.Type / 型式
+## Sys.Types / 型式
 ### 概要
 入力された変数の型を返答します。
 
 ### 使い方
 ```
 >> 基本構文
-Sys.Type({Variable})
+Sys.Types({Variable})
 
 >> 出力一覧
 string = 文字列型
@@ -174,7 +216,7 @@ null エラー
 >> Program
 Str = "hoge"
 
-console.log(Sys.Type(Str))
+console.log(Sys.Types(Str))
 
 >> Output
 string
@@ -364,6 +406,7 @@ HTMLタグの属性値を変更します。(Class)
 
 ### 使い方
 ```
+>> 基本構文
 Web.UpdataAttrClass({Claas},{Value})
 
 >> 出力一覧
@@ -452,11 +495,41 @@ Web.UpdataTextClass("hoge[0]","piyo")
 ### 注意点
 - - 入力できる型は`文字列`/`数値`です。(推奨:文字列)
 
+<!--
+## NAME
+### 概要
+
+### 使い方
+```
+>> 基本構文
+>> 出力一覧
+```
+
+### 利用例
+```
+>> Program
+>> Output
+```
+
+### 注意点
+- 
+- - 入力できる型は`文字列`/`数値`/`配列`です。
+
+---
+
+-->
 
 
 <!--
 # Smart
 *内部処理用の関数
+
+NoValue
+({Variable})
+変数が未定義(何も入力されていない)か判定。
+
+
+
 
 ## Smart.ArrayCutter
 ## Smart.IndexParse <- これいらないかも
